@@ -12,6 +12,11 @@ body {
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
     min-height: 80vh;
 }
 
@@ -35,6 +40,7 @@ button {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    width: 1536px;
+    max-width: 1536px;
+    width: 100%;
     margin: 0 auto;
 }

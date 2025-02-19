@@ -1,4 +1,5 @@
 import { SearchBar } from '../../utils/Search'
+import { ComicsApi } from './ComicsApi'
 
 export const Comics = () => {
 	const handleSearch = query => {
@@ -10,6 +11,7 @@ export const Comics = () => {
 			<div className='container'>
 				<main className='content'>
 					<SearchBar onSearch={handleSearch} />
+                    <ComicsApi />
 				</main>
 			</div>
 		</>

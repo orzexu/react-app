@@ -10,6 +10,9 @@ import { Characters } from './Pages/Characters/Characters'
 import { Comics } from './Pages/Comics/Comics'
 import { Series } from './Pages/Series/Series'
 import { Favourites } from './Pages/Favourites/Favourites'
+import { CharPostPage } from './Pages/Characters/CharPostPage'
+import { ComicsPostPage } from './Pages/Comics/ComicsPostPage'
+import { SeriesPostPage } from './Pages/Series/SeriesPostPage'
 
 export function App() {
 	const { isDarkTheme, toggleTheme } = useTheme()
@@ -17,13 +20,18 @@ export function App() {
 		<div className={`app ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
 			<Router>
 				<Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
-				<Routes>
-					<Route path="/" element={<Discription />} />
-					<Route path="/Characters" element={<Characters />} />
-                    <Route path="/Comics" element={<Comics />} />
-					<Route path="/Series" element={<Series />} />
-					<Route path="/Favourites" element={<Favourites />} />
-				</Routes>
+				<div className="content">
+					<Routes>
+						<Route path="/" element={<Discription />} />
+						<Route path="/Characters" element={<Characters />} />
+						<Route path="/Comics" element={<Comics />} />
+						<Route path="/Series" element={<Series />} />
+						<Route path="/Favourites" element={<Favourites />} />
+						<Route path="/Characters/:id" element={<CharPostPage />}/>
+						<Route path="/Comics/:id" element={<ComicsPostPage />}/>
+						<Route path="/Series/:id" element={<SeriesPostPage />}/>
+					</Routes>
+				</div>
 				<Footer isDarkTheme={isDarkTheme} />
 			</Router>
 		</div>

@@ -7,7 +7,7 @@ export const Header = ({ isDarkTheme, toggleTheme }) => {
 		<header className={isDarkTheme ? 'dark-header' : 'light-header'}>
 			<div className="container">
 				<NavLink to="/" className="logo">
-					<img src="marvel_logo.svg" alt="Marvel Logo" />
+					<img src="/marvel_logo.svg" alt="Marvel Logo" />
 				</NavLink>
 				<nav className="nav">
 					<NavLink to="/Characters">
