@@ -5,7 +5,7 @@ import { SearchIcon } from './SearchIcon'
 export const SearchBar = ({ onSearch }) => {
 	const [query, setQuery] = useState('')
 
-	const handleInputChange = event => {
+	const handleInputChange = (event) => {
 		setQuery(event.target.value)
 	}
 
@@ -21,7 +21,7 @@ export const SearchBar = ({ onSearch }) => {
 				type="text"
 				value={query}
 				onChange={handleInputChange}
-				placeholder="Search comics, series..."
+				placeholder="Search ..."
 			/>
 			<button className='serachBar__btn' onClick={handleSearch}>Search</button>
 		</div>

@@ -1,17 +1,19 @@
-import { SearchBar } from "../../utils/Search";
+import { useState } from "react";
+import { SearchBar } from "../../components/Search/SearchBar";
 import { SeriesApi } from "./SeriesApi";
 
 export const Series = () => {
-    const handleSearch = (query) => {
-        console.log('Поисковый запрос:', query);
-        // Здесь можно добавить логику для выполнения поиска
-      };
+    const [searchQuery, setSearchQuery] = useState('')
+    
+        const handleSearch = query => {
+            setSearchQuery(query)
+        }
     return ( 
         <>
 			<div className="container">
 				<main className="content">
 					<SearchBar onSearch={handleSearch} />
-                    <SeriesApi />
+                    <SeriesApi searchQuery={searchQuery} />
 				</main>
 			</div>
 		</>

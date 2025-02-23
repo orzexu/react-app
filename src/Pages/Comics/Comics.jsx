@@ -1,17 +1,19 @@
-import { SearchBar } from '../../utils/Search'
+import { useState } from 'react'
+import { SearchBar } from '../../components/Search/SearchBar'
 import { ComicsApi } from './ComicsApi'
 
 export const Comics = () => {
+	const [searchQuery, setSearchQuery] = useState('')
+
 	const handleSearch = query => {
-		console.log('Поисковый запрос:', query)
-		// Здесь можно добавить логику для выполнения поиска
+		setSearchQuery(query)
 	}
 	return (
 		<>
-			<div className='container'>
-				<main className='content'>
+			<div className="container">
+				<main className="content">
 					<SearchBar onSearch={handleSearch} />
-                    <ComicsApi />
+					<ComicsApi searchQuery={searchQuery} />
 				</main>
 			</div>
 		</>

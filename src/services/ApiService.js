@@ -3,10 +3,65 @@ import axios from 'axios';
 
 const apiKey = '0a167095bb5456f5b8c9b9873dab411c';
 const hash = 'a2a0daab3b70a8b5470de102dd38ff8b';
+const limit = '20'
 
 export const ApiService = {
-  // Метод для получения данных о персонаже по ID
-  getCharacterById: async (id) => {
+  
+    searchCharacters: async (query, offset = 0) => {
+        try {
+          const response = await axios.get(`https://gateway.marvel.com/v1/public/characters`, {
+            params: {
+              ts: '1',
+              apikey: apiKey,
+              hash: hash,
+              offset: offset,
+              limit: limit,
+              nameStartsWith: query,
+            },
+          });
+          return response.data.data;
+        } catch (error) {
+          throw error;
+        }
+      },
+
+      searchComicses: async (query, offset = 0) => {
+        try {
+          const response = await axios.get(`https://gateway.marvel.com/v1/public/comics`, {
+            params: {
+              ts: '1',
+              apikey: apiKey,
+              hash: hash,
+              offset: offset,
+              limit: limit,
+              titleStartsWith: query,
+            },
+          });
+          return response.data.data;
+        } catch (error) {
+          throw error;
+        }
+      },
+
+      searchSeries: async (query, offset = 0) => {
+        try {
+          const response = await axios.get(`https://gateway.marvel.com/v1/public/series`, {
+            params: {
+              ts: '1',
+              apikey: apiKey,
+              hash: hash,
+              offset: offset,
+              limit: limit,
+              titleStartsWith: query,
+            },
+          });
+          return response.data.data;
+        } catch (error) {
+          throw error;
+        }
+      },
+  
+    getCharacterById: async (id) => {
     try {
       const response = await axios.get(`https://gateway.marvel.com/v1/public/characters/${id}`, {
         params: {
@@ -15,9 +70,9 @@ export const ApiService = {
           hash: hash,
         },
       });
-      return response.data.data.results; // Возвращаем результаты
+      return response.data.data.results;
     } catch (error) {
-      throw error; // Пробрасываем ошибку, чтобы обработать её в компоненте
+      throw error;
     }
   },
 
@@ -60,14 +115,15 @@ export const ApiService = {
           apikey: apiKey,
           hash: hash,
           offset: offset,
+          limit: limit
         },
       });
-      return response.data.data.results;
+      return response.data.data;
     } catch (error) {
       throw error;
     }
   },
-  getComics: async (offset = 0) => {
+  getComicses: async (offset = 0) => {
     try {
       const response = await axios.get('https://gateway.marvel.com/v1/public/comics', {
         params: {
@@ -75,9 +131,10 @@ export const ApiService = {
           apikey: apiKey,
           hash: hash,
           offset: offset,
+          limit: limit
         },
       });
-      return response.data.data.results;
+      return response.data.data;
     } catch (error) {
       throw error;
     }
@@ -91,9 +148,10 @@ export const ApiService = {
           apikey: apiKey,
           hash: hash,
           offset: offset,
+          limit: limit
         },
       });
-      return response.data.data.results;
+      return response.data.data;
     } catch (error) {
       throw error;
     }

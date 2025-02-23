@@ -154,3 +154,60 @@ li {
     align-items: center;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 3px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    border: 2px solid #969696;
+    border-radius: 4px;
+    background-color: #cecece;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #7a7a7a;
+  }
+  
+  .pagination button:disabled {
+    background-color: #eeeeee;
+    cursor: not-allowed;
+    color: #aaa;
+  }
+  
+  .pagination button.active {
+    font-weight: bold;
+    color: #cf1313;
+    border-color: #cf1313;
+  }
+
+  .favoriteBtn {
+    background-color: #cf1313; /* Зеленый цвет для кнопки */
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    font-size: 20px;
+    line-height: 10px;
+
+    &:hover {
+        background-color: #a10000; /* Темно-зеленый при наведении */
+    }
+
+    &.active {
+        background-color: #fff; /* Красный цвет для активной кнопки */
+        outline: 2px solid #cf1313;
+        color: #cf1313;
+        &:hover {
+            background-color: #a10000; /* Темно-красный при наведении */
+        }
+    }
+  }

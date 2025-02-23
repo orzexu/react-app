@@ -1,17 +1,20 @@
-import { SearchBar } from '../../utils/Search'
+import { useState } from 'react'
+import { SearchBar } from '../../components/Search/SearchBar'
 import { CharApi } from './CharApi'
 
 export const Characters = () => {
+	const [searchQuery, setSearchQuery] = useState('')
+
 	const handleSearch = query => {
-		console.log('Поисковый запрос:', query)
-		// Здесь можно добавить логику для выполнения поиска
+		setSearchQuery(query)
 	}
+
 	return (
 		<>
 			<div className="container">
 				<main className="content">
 					<SearchBar onSearch={handleSearch} />
-					<CharApi />
+					<CharApi searchQuery={searchQuery} />
 				</main>
 			</div>
 		</>

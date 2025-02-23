@@ -37,7 +37,7 @@ export function CharPostPage() {
 			})
 		}
 	}, [post])
-	// && post[0].series && post[0].series.items
+
 
 	if (isLoading) {
 		return <div className="spinner"></div>

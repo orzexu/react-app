@@ -13,11 +13,14 @@ import { Favourites } from './Pages/Favourites/Favourites'
 import { CharPostPage } from './Pages/Characters/CharPostPage'
 import { ComicsPostPage } from './Pages/Comics/ComicsPostPage'
 import { SeriesPostPage } from './Pages/Series/SeriesPostPage'
+import { Provider } from 'react-redux'
+import {store} from './Pages/Favourites/store'
 
 export function App() {
 	const { isDarkTheme, toggleTheme } = useTheme()
 	return (
 		<div className={`app ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
+            <Provider store={store}>
 			<Router>
 				<Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
 				<div className="content">
@@ -27,13 +30,14 @@ export function App() {
 						<Route path="/Comics" element={<Comics />} />
 						<Route path="/Series" element={<Series />} />
 						<Route path="/Favourites" element={<Favourites />} />
-						<Route path="/Characters/:id" element={<CharPostPage />}/>
-						<Route path="/Comics/:id" element={<ComicsPostPage />}/>
-						<Route path="/Series/:id" element={<SeriesPostPage />}/>
+						<Route path="/Characters/:id" element={<CharPostPage />} />
+						<Route path="/Comics/:id" element={<ComicsPostPage />} />
+						<Route path="/Series/:id" element={<SeriesPostPage />} />
 					</Routes>
 				</div>
 				<Footer isDarkTheme={isDarkTheme} />
 			</Router>
+            </Provider>
 		</div>
 	)
 }
