@@ -5,7 +5,7 @@ import { ComicsApi } from './ComicsApi'
 export const Comics = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 
-	const handleSearch = query => {
+	const handleSearch = (query: string) => {
 		setSearchQuery(query)
 	}
 	return (

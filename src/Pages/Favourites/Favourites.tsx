@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import './Favourites.scss'
 import { useSelector } from 'react-redux'
+import { Store } from '@reduxjs/toolkit'
+import { CharactersType, ComicsType, SeriesType } from '../Types/types'
+import { RootState } from './store'
 
 export const Favourites = () => {
-	const { characters, comics, series } = useSelector(state => state.favorites)
+	const { characters, comics, series } = useSelector((state: RootState) => state.favorites)
 
 	return (
 		<div>
@@ -12,7 +15,7 @@ export const Favourites = () => {
 					<h2>Characters</h2>
 					{characters.length > 0 ? (
 						<ul>
-							{characters.map(character => (
+							{characters.map((character: CharactersType) => (
 								<li key={`character-${character.id}`}>
 									<h3>{character.name}</h3>
 									<img
@@ -31,7 +34,7 @@ export const Favourites = () => {
 					<h2>Comics</h2>
 					{comics.length > 0 ? (
 						<ul>
-							{comics.map(comics => (
+							{comics.map((comics: ComicsType) => (
 								<li key={`comic-${comics.id}`}>
 									<h3>{comics.title}</h3>
 									<img
@@ -50,7 +53,7 @@ export const Favourites = () => {
 					<h2>Series</h2>
 					{series.length > 0 ? (
 						<ul>
-							{series.map(serial => (
+							{series.map((serial: SeriesType) => (
 								<li key={`series-${serial.id}`}>
 									<h3>{serial.title}</h3>
 									<img

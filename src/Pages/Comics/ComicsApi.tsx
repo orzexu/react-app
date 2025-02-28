@@ -1,5 +1,5 @@
 import './../pagesStyle.scss'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiService } from '../../services/ApiService'
 import { usePagination } from '../../hooks/usePagination'
@@ -8,13 +8,24 @@ import {
 	removeFromFavorites,
 	addToFavorites,
 } from '../Favourites/favoritesSlise'
+import { ComicsType } from '../Types/types'
+
+interface ComicsApiProps {
+    searchQuery: string
+}
+
+interface FavoritesProps {
+    favorites: {
+        comics: ComicsType[]
+    }
+}
 
 const limit = 20
 
-export const ComicsApi = ({ searchQuery }) => {
-	const [comicses, setComicses] = useState([])
+export const ComicsApi = React.memo(({ searchQuery }: ComicsApiProps) => {
+	const [comicses, setComicses] = useState<ComicsType[]>([])
 	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState<string | null>(null)
 	const {
 		currentPage,
 		totalPages,
@@ -23,12 +34,12 @@ export const ComicsApi = ({ searchQuery }) => {
 		handlePrevPage,
 		handlePageChange,
 		getPageNumbers,
-	} = usePagination(1, limit)
+	} = usePagination(1)
 	const dispatch = useDispatch()
-	const favorites = useSelector(state => state.favorites.comics)
+	const favorites = useSelector((state: FavoritesProps) => state.favorites.comics)
 
 	const fetchComicses = useCallback(
-		async (page, query = '') => {
+		async (page: number, query = '') => {
 			setIsLoading(true)
 			setError(null)
 
@@ -39,7 +50,7 @@ export const ComicsApi = ({ searchQuery }) => {
 					: await ApiService.getComicses(offset)
 				setComicses(data.results || [])
 				setTotalPages(Math.ceil(data.total / limit))
-			} catch (error) {
+			} catch (error: any) {
 				setError(error.message)
 			} finally {
 				setIsLoading(false)
@@ -57,7 +68,7 @@ export const ComicsApi = ({ searchQuery }) => {
 	}
 
 	if (error) {
-		return <div> Error: {error.message} </div>
+		return <div> Error: { error } </div>
 	}
 
 	return (
@@ -149,4 +160,4 @@ export const ComicsApi = ({ searchQuery }) => {
 			)}
 		</>
 	)
-}
+})

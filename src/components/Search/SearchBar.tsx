@@ -2,10 +2,14 @@ import './Search.scss'
 import { useState } from 'react'
 import { SearchIcon } from './SearchIcon'
 
-export const SearchBar = ({ onSearch }) => {
-	const [query, setQuery] = useState('')
+interface SearchProps {
+    onSearch: (query: string) => void
+}
 
-	const handleInputChange = (event) => {
+export const SearchBar: React.FC<SearchProps> = ({ onSearch }) => {
+	const [query, setQuery] = useState<string>('')
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
 	}
 

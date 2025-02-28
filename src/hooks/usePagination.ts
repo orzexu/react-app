@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const usePagination = (initialPage = 1) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageFromURL = parseInt(searchParams.get("page")) || initialPage;
+interface PaginationReturn {
+    currentPage: number,
+    totalPages: number,
+    setTotalPages: (TotalPages: number) => void,
+    handleNextPage: () => void,
+    handlePrevPage: () => void,
+    handlePageChange:(page: number) => void,
+    getPageNumbers: (maxPagesToShow?: number) => number[],
+}
 
-  const [currentPage, setCurrentPage] = useState(pageFromURL); // Используем значение из URL
-  const [totalPages, setTotalPages] = useState(0);
+export const usePagination = (initialPage: number = 1): PaginationReturn => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageFromURL = parseInt(searchParams.get("page") ?? '') || initialPage;
+
+  const [currentPage, setCurrentPage] = useState<number>(pageFromURL); // Используем значение из URL
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   // Синхронизация currentPage с URL
   useEffect(() => {
-    setSearchParams({ page: currentPage });
+    setSearchParams({ page: currentPage.toString() });
   }, [currentPage, setSearchParams]);
 
   // Переход на следующую страницу
@@ -30,13 +40,13 @@ export const usePagination = (initialPage = 1) => {
   };
 
   // Переход на конкретную страницу
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
 
   // Рассчитываем диапазон отображаемых страниц
-  const getPageNumbers = (maxPagesToShow = 10) => {
+  const getPageNumbers = (maxPagesToShow: number = 10) => {
     const pages = [];
     let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
     let endPage = startPage + maxPagesToShow - 1;

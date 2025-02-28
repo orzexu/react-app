@@ -2,7 +2,12 @@ import './Header.scss'
 import { ChangeTheme } from './ChangeTheme/ChangeTheme'
 import { NavLink } from 'react-router-dom'
 
-export const Header = ({ isDarkTheme, toggleTheme }) => {
+interface TypeHeader {
+    isDarkTheme: boolean
+    toggleTheme: () => void
+}
+
+export const Header: React.FC<TypeHeader> = ({ isDarkTheme, toggleTheme }) => {
 	return (
 		<header className={isDarkTheme ? 'dark-header' : 'light-header'}>
 			<div className="container">

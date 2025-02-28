@@ -5,7 +5,7 @@ import { SeriesApi } from "./SeriesApi";
 export const Series = () => {
     const [searchQuery, setSearchQuery] = useState('')
     
-        const handleSearch = query => {
+        const handleSearch = (query: string) => {
             setSearchQuery(query)
         }
     return ( 

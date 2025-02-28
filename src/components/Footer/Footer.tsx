@@ -1,6 +1,10 @@
 import './Footer.scss'
 
-export const Footer = ({ isDarkTheme }) => {
+interface TypeFooter {
+    isDarkTheme: boolean
+}
+
+export const Footer: React.FC<TypeFooter> = ({ isDarkTheme }) => {
 	return (
 		<>
 			<footer className={`footer ${isDarkTheme ? 'dark-footer' : 'light-footer'}`}>

@@ -1,6 +1,11 @@
 import './ChangeTheme.scss'
 
-export const ChangeTheme = ({ isDarkTheme, toggleTheme }) => {
+interface TypeTheme {
+    isDarkTheme: boolean
+    toggleTheme: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export const ChangeTheme: React.FC<TypeTheme> = ({ isDarkTheme, toggleTheme }) => {
 	return (
 		<label className="switch">
 			<input

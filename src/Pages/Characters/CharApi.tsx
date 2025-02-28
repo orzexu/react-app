@@ -1,17 +1,28 @@
 import './../pagesStyle.scss';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePagination } from '../../hooks/usePagination';
 import { ApiService } from '../../services/ApiService';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites, removeFromFavorites } from '../Favourites/favoritesSlise';
+import { CharactersType } from '../Types/types';
+
+interface CharApiProps {
+    searchQuery: string
+}
+
+interface FavoritesProps {
+    favorites: {
+        characters: CharactersType[]
+    }
+}
 
 const limit = 20;
 
-export const CharApi = ({ searchQuery }) => {
-    const [characters, setCharacters] = useState([]);
+export const CharApi = React.memo(({ searchQuery }: CharApiProps) => {
+    const [characters, setCharacters] = useState<CharactersType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const {
         currentPage,
         totalPages,
@@ -23,10 +34,10 @@ export const CharApi = ({ searchQuery }) => {
     } = usePagination(1);
 
     const dispatch = useDispatch();
-    const favorites = useSelector((state) => state.favorites.characters)
+    const favorites = useSelector((state: FavoritesProps) => state.favorites.characters)
 
     const fetchCharacters = useCallback(
-        async (page, query = '') => {
+        async (page: number, query = '') => {
             setIsLoading(true);
             setError(null);
 
@@ -34,10 +45,10 @@ export const CharApi = ({ searchQuery }) => {
                 const offset = (page - 1) * limit;
                 const data = query
                     ? await ApiService.searchCharacters(query, offset)
-                    : await ApiService.getCharacters(offset);
+                    : await ApiService.getCharacters(offset)
                 setCharacters(data.results || []);
                 setTotalPages(Math.ceil(data.total / limit));
-            } catch (error) {
+            } catch (error: any) {
                 setError(error.message);
             } finally {
                 setIsLoading(false);
@@ -55,7 +66,7 @@ export const CharApi = ({ searchQuery }) => {
     }
 
     if (error) {
-        return <div> Error: {error.message} </div>;
+        return <div> Error: { error } </div>;
     }
 
     return (
@@ -118,4 +129,4 @@ export const CharApi = ({ searchQuery }) => {
             )}
         </>
     );
-};
+});

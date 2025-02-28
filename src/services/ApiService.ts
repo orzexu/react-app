@@ -7,7 +7,7 @@ const limit = '20'
 
 export const ApiService = {
   
-    searchCharacters: async (query, offset = 0) => {
+    searchCharacters: async (query: string, offset = 0) => {
         try {
           const response = await axios.get(`https://gateway.marvel.com/v1/public/characters`, {
             params: {
@@ -25,7 +25,7 @@ export const ApiService = {
         }
       },
 
-      searchComicses: async (query, offset = 0) => {
+      searchComicses: async (query: string, offset = 0) => {
         try {
           const response = await axios.get(`https://gateway.marvel.com/v1/public/comics`, {
             params: {
@@ -43,7 +43,7 @@ export const ApiService = {
         }
       },
 
-      searchSeries: async (query, offset = 0) => {
+      searchSeries: async (query: string, offset = 0) => {
         try {
           const response = await axios.get(`https://gateway.marvel.com/v1/public/series`, {
             params: {
@@ -61,7 +61,7 @@ export const ApiService = {
         }
       },
   
-    getCharacterById: async (id) => {
+    getCharacterById: async (id: number) => {
     try {
       const response = await axios.get(`https://gateway.marvel.com/v1/public/characters/${id}`, {
         params: {
@@ -76,7 +76,7 @@ export const ApiService = {
     }
   },
 
-  getComicsById: async (id) => {
+  getComicsById: async (id: number) => {
     try {
       const response = await axios.get(`https://gateway.marvel.com/v1/public/comics/${id}`, {
         params: {
@@ -91,7 +91,7 @@ export const ApiService = {
     }
   },
 
-  getSeriesById: async (id) => {
+  getSeriesById: async (id: number) => {
     try {
       const response = await axios.get(`https://gateway.marvel.com/v1/public/series/${id}`, {
         params: {

@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { SearchBar } from '../../components/Search/SearchBar'
 import { CharApi } from './CharApi'
 
+
 export const Characters = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 
-	const handleSearch = query => {
+	const handleSearch = (query: string) => {
 		setSearchQuery(query)
 	}
 

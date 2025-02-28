@@ -1,6 +1,23 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const CardListRender = ({ items, title, path, nameField = 'title' }) => {
+interface Item {
+    id: number
+    thumbnail: {
+        path: string
+        extension: string
+    }
+    [key: string]: any
+}
+
+interface RenderProps {
+    items: Item[]
+    title: string
+    path:string
+    nameField?: string
+}
+
+export const CardListRender: React.FC<RenderProps> = React.memo(({ items, title, path, nameField = 'title' }) => {
   return (
     <div className={`imp${title}`}>
       <h1 className={`post__${title.toLowerCase()}`}>{title}</h1>
@@ -25,4 +42,4 @@ export const CardListRender = ({ items, title, path, nameField = 'title' }) => {
       )}
     </div>
   );
-};
+});

@@ -2,20 +2,31 @@ import { Link } from 'react-router-dom'
 import { ApiService } from '../../services/ApiService'
 import './../pagesStyle.scss'
 
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { usePagination } from '../../hooks/usePagination'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	removeFromFavorites,
 	addToFavorites,
 } from '../Favourites/favoritesSlise'
+import { SeriesType } from '../Types/types'
+
+interface SeriesApiProps {
+	searchQuery: string
+}
+
+interface FavoritesProps {
+	favorites: {
+		series: SeriesType[]
+	}
+}
 
 const limit = 20
 
-export const SeriesApi = ({ searchQuery }) => {
-	const [series, setSeries] = useState([])
+export const SeriesApi = React.memo(({ searchQuery }: SeriesApiProps) => {
+	const [series, setSeries] = useState<SeriesType[]>([])
 	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState<string | null>(null)
 	const {
 		currentPage,
 		totalPages,
@@ -24,12 +35,14 @@ export const SeriesApi = ({ searchQuery }) => {
 		handlePrevPage,
 		handlePageChange,
 		getPageNumbers,
-	} = usePagination(1, limit)
+	} = usePagination(1)
 	const dispatch = useDispatch()
-	const favorites = useSelector(state => state.favorites.series)
+	const favorites = useSelector(
+		(state: FavoritesProps) => state.favorites.series
+	)
 
 	const fetchSeries = useCallback(
-		async (page, query = '') => {
+		async (page: number, query = '') => {
 			setIsLoading(true)
 			setError(null)
 
@@ -40,8 +53,8 @@ export const SeriesApi = ({ searchQuery }) => {
 					: await ApiService.getSeries(offset)
 				setSeries(data.results || [])
 				setTotalPages(Math.ceil(data.total / limit))
-			} catch (error) {
-				setError(error.message)
+			} catch (error: any) {
+				setError(error)
 			} finally {
 				setIsLoading(false)
 			}
@@ -58,7 +71,7 @@ export const SeriesApi = ({ searchQuery }) => {
 	}
 
 	if (error) {
-		return <div> Error: {error.message} </div>
+		return <div> Error: {error} </div>
 	}
 
 	return (
@@ -150,4 +163,4 @@ export const SeriesApi = ({ searchQuery }) => {
 			)}
 		</>
 	)
-}
+})
